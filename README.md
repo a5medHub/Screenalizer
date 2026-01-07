@@ -41,7 +41,7 @@ Create `media.config.json` in the project root (or copy `media.config.example.js
 
 Notes:
 - `localPath` can be absolute (recommended on Windows) or relative to the project.
-- Supported local extensions: `.mp4`, `.mkv`, `.webm`, `.mov`, `.avi`.
+- Supported local extensions: `.mp4`, `.mkv`, `.webm`, `.mov`, `.avi`, `.m4v`, `.mpg`, `.mpeg`, `.ts`, `.m2ts`.
 - Optional posters: place `movie.jpg` next to `movie.mp4`, or use `poster` for URLs.
 - `autoPosters` (default true) generates posters for streams and local files using `ffmpeg` if installed.
 - `tmdbApiKey` enables TMDB lookups from the Add dialog (you can also set `TMDB_API_KEY`).
@@ -79,6 +79,40 @@ Example `Movie.json`:
 - Admin page (`/admin.html`) for edit/delete/bulk update.
 
 State is stored in `data/state.json`. Poster uploads are stored in `data/posters/`.
+
+## Use on your local network (TV / mobile)
+
+1) Start the server:
+
+```bash
+npm start
+```
+
+2) Find your PC's IPv4 address:
+
+```bash
+ipconfig
+```
+
+3) On your phone/TV browser, open:
+
+```
+http://<PC-IP>:5179
+```
+
+Example: `http://192.168.1.23:5179`
+
+### Firewall (Windows)
+
+You must allow inbound traffic so other devices can connect:
+
+Option A (recommended): Allow **Node.js** on Private networks  
+Option B: Create an inbound rule for TCP port **5179**
+
+If your phone says "connection interrupted", make sure:
+- PC network profile is **Private**.
+- Phone and PC are on the same Wi-Fi/LAN.
+- The server is running and bound to `0.0.0.0`.
 
 ## TMDB metadata
 
