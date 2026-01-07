@@ -1,0 +1,255 @@
+.admin-page .layout {
+  min-height: 100vh;
+}
+
+.admin-layout {
+  padding-top: 90px;
+}
+
+.admin-panel {
+  display: grid;
+  gap: 20px;
+}
+
+.admin-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.admin-sub {
+  margin: 6px 0 0;
+  color: var(--ink-muted);
+  font-size: 0.9rem;
+}
+
+.admin-status {
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+}
+
+.admin-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: rgba(10, 14, 20, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 50;
+  pointer-events: none;
+  max-width: min(420px, 90vw);
+}
+
+.admin-toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.admin-toast.error {
+  border-color: rgba(240, 76, 76, 0.6);
+}
+
+.admin-tools {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.admin-tool-card {
+  border: 1px solid var(--stroke);
+  border-radius: 18px;
+  padding: 16px;
+  background: rgba(9, 13, 20, 0.65);
+  display: grid;
+  gap: 12px;
+}
+
+.admin-tool-card h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-family: "Bebas Neue", "Manrope", sans-serif;
+  letter-spacing: 0.04em;
+}
+
+.admin-form {
+  display: grid;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+}
+
+.admin-form label {
+  display: grid;
+  gap: 6px;
+}
+
+.admin-form input,
+.admin-form select,
+.admin-form textarea {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--stroke);
+  background: rgba(12, 18, 27, 0.9);
+  color: var(--ink);
+  font-family: inherit;
+}
+
+.admin-form textarea {
+  resize: vertical;
+}
+
+.admin-form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+}
+
+.admin-form-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.admin-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--ink);
+}
+
+.admin-filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.admin-filters label {
+  display: grid;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+}
+
+.admin-filters input,
+.admin-filters select {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--stroke);
+  background: rgba(12, 18, 27, 0.9);
+  color: var(--ink);
+  font-family: inherit;
+}
+
+.admin-bulk {
+  border: 1px solid var(--stroke);
+  border-radius: 18px;
+  padding: 16px;
+  background: rgba(9, 13, 20, 0.65);
+  display: grid;
+  gap: 14px;
+}
+
+.bulk-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.bulk-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.admin-table {
+  border: 1px solid var(--stroke);
+  border-radius: 18px;
+  overflow: hidden;
+  background: rgba(10, 14, 20, 0.75);
+}
+
+.admin-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: left;
+}
+
+.admin-table th {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.admin-table td {
+  color: var(--ink);
+}
+
+.admin-table tr:hover td {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.admin-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.admin-row-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.admin-row-actions .icon-btn {
+  width: 32px;
+  height: 32px;
+}
+
+.admin-row-actions .icon-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.admin-pill {
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  border: 1px solid var(--stroke);
+  color: var(--ink-muted);
+}
+
+.admin-edit-card {
+  width: min(520px, 92vw);
+}
+
+@media (max-width: 900px) {
+  .admin-head {
+    flex-direction: column;
+  }
+
+  .admin-layout {
+    padding-top: 120px;
+  }
+
+  .admin-tools {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-table {
+    overflow-x: auto;
+  }
+}

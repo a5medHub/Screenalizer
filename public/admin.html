@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Screenalizer Admin</title>
+    <meta name="theme-color" content="#0b1218" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="icons/icon-192.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icons/icon-192.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <body class="admin-page">
+    <main class="layout admin-layout">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark">Screenalizer</span>
+        </div>
+        <nav class="nav-links">
+          <a class="nav-link" href="index.html">Home</a>
+          <span class="nav-link active">Admin</span>
+        </nav>
+        <div class="actions">
+          <button id="adminReload" class="btn btn-ghost icon-btn" aria-label="Reload" title="Reload">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20 12a8 8 0 1 1-2.3-5.7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+              <path d="M20 4v6h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+            </svg>
+            <span class="sr-only">Reload</span>
+          </button>
+        </div>
+      </header>
+
+      <section class="admin-panel">
+        <div class="admin-head">
+          <div>
+            <h1>Admin</h1>
+            <p class="admin-sub">Manage your library.</p>
+          </div>
+          <div class="admin-status" id="adminStatus"></div>
+        </div>
+
+        <section class="admin-tools">
+          <div class="admin-tool-card">
+            <h2>Add local title</h2>
+            <form id="adminAddLocal" class="admin-form">
+              <label>
+                <span>File</span>
+                <input id="adminLocalFile" type="file" accept="video/*" />
+              </label>
+              <label>
+                <span>Or local path</span>
+                <input id="adminLocalPath" type="text" placeholder="C:\Movies\Movie.mp4" />
+              </label>
+              <label>
+                <span>Title</span>
+                <input id="adminLocalTitle" type="text" />
+              </label>
+              <div class="admin-form-row">
+                <label>
+                  <span>Shelf</span>
+                  <input id="adminLocalGroup" type="text" placeholder="Library" />
+                </label>
+                <label>
+                  <span>Year</span>
+                  <input id="adminLocalYear" type="number" min="1900" max="2100" />
+                </label>
+              </div>
+              <label>
+                <span>Tags (comma)</span>
+                <input id="adminLocalTags" type="text" placeholder="Action, Drama" />
+              </label>
+              <label>
+                <span>Rating</span>
+                <input id="adminLocalRating" type="number" min="0" max="10" step="0.1" />
+              </label>
+              <div class="admin-form-actions">
+                <button type="submit" class="btn btn-primary">Add local</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="admin-tool-card">
+            <h2>Add stream URL</h2>
+            <form id="adminAddUrl" class="admin-form">
+              <label>
+                <span>Video URL</span>
+                <input id="adminUrl" type="url" placeholder="https://..." />
+              </label>
+              <label>
+                <span>Poster URL</span>
+                <input id="adminPosterUrl" type="url" placeholder="https://..." />
+              </label>
+              <label>
+                <span>Subtitle URL</span>
+                <input id="adminSubtitleUrl" type="url" placeholder="https://..." />
+              </label>
+              <label>
+                <span>Title</span>
+                <input id="adminUrlTitle" type="text" />
+              </label>
+              <div class="admin-form-row">
+                <label>
+                  <span>Shelf</span>
+                  <input id="adminUrlGroup" type="text" placeholder="Streams" />
+                </label>
+                <label>
+                  <span>Year</span>
+                  <input id="adminUrlYear" type="number" min="1900" max="2100" />
+                </label>
+              </div>
+              <label>
+                <span>Tags (comma)</span>
+                <input id="adminUrlTags" type="text" placeholder="Sci-Fi, Action" />
+              </label>
+              <label>
+                <span>Rating</span>
+                <input id="adminUrlRating" type="number" min="0" max="10" step="0.1" />
+              </label>
+              <div class="admin-form-actions">
+                <button type="submit" class="btn btn-primary">Add stream</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="admin-tool-card">
+            <h2>Bulk import</h2>
+            <form id="adminBulkImport" class="admin-form">
+              <label>
+                <span>Mode</span>
+                <select id="adminBulkMode">
+                  <option value="lines">Line list</option>
+                  <option value="json">JSON</option>
+                </select>
+              </label>
+              <label class="meta-textarea">
+                <span>Items</span>
+                <textarea id="adminBulkItems" rows="6" placeholder="C:\Movies\Inception.mp4 | Inception | 2010 | Sci-Fi, Thriller | 4.6 | Movies"></textarea>
+              </label>
+              <div class="admin-form-actions">
+                <button type="submit" class="btn btn-primary">Import</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="admin-tool-card">
+            <h2>TMDB enrich</h2>
+            <form id="adminEnrichForm" class="admin-form">
+              <label>
+                <span>Limit (optional)</span>
+                <input id="adminEnrichLimit" type="number" min="1" placeholder="All titles" />
+              </label>
+              <label class="admin-check">
+                <input id="adminEnrichOverwrite" type="checkbox" />
+                <span>Overwrite existing metadata</span>
+              </label>
+              <label class="admin-check">
+                <input id="adminEnrichPosters" type="checkbox" />
+                <span>Use TMDB posters</span>
+              </label>
+              <div class="admin-form-actions">
+                <button id="adminEnrichRun" type="submit" class="btn btn-primary">Run</button>
+                <button id="adminRescan" type="button" class="btn btn-ghost">Rescan</button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <div class="admin-filters">
+          <label>
+            <span>Search</span>
+            <input id="adminSearch" type="search" placeholder="Find titles or tags..." />
+          </label>
+          <label>
+            <span>Type</span>
+            <select id="adminType">
+              <option value="all">All</option>
+              <option value="local">Local</option>
+              <option value="url">Streams</option>
+            </select>
+          </label>
+          <label>
+            <span>Group</span>
+            <input id="adminGroup" type="text" placeholder="All shelves" />
+          </label>
+        </div>
+
+        <div class="admin-bulk">
+          <div class="bulk-fields">
+            <label>
+              <span>Tags</span>
+              <input id="bulkTags" type="text" placeholder="Action, Drama" />
+            </label>
+            <label>
+              <span>Tag mode</span>
+              <select id="bulkTagMode">
+                <option value="append">Append</option>
+                <option value="replace">Replace</option>
+              </select>
+            </label>
+            <label>
+              <span>Group</span>
+              <input id="bulkGroup" type="text" placeholder="Shelf name" />
+            </label>
+            <label>
+              <span>Rating</span>
+              <input id="bulkRating" type="number" min="0" max="10" step="0.1" />
+            </label>
+          </div>
+          <div class="bulk-actions">
+            <button id="bulkApply" class="btn btn-primary icon-btn" aria-label="Apply updates" title="Apply updates">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6 12l4 4 8-8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+              <span class="sr-only">Apply updates</span>
+            </button>
+            <button id="bulkClear" class="btn btn-ghost icon-btn" aria-label="Clear metadata" title="Clear metadata">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 7h14M9 7V5h6v2M8 7l1 11h6l1-11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+              </svg>
+              <span class="sr-only">Clear metadata</span>
+            </button>
+            <button id="bulkDelete" class="btn btn-ghost icon-btn" aria-label="Delete selected" title="Delete selected">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 7h14M9 7V5h6v2M8 7l1 11h6l1-11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                <path d="M9 11l6 6M15 11l-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+              </svg>
+              <span class="sr-only">Delete selected</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="admin-table">
+          <table>
+            <thead>
+              <tr>
+                <th><input id="selectAll" type="checkbox" /></th>
+                <th>Title</th>
+                <th>Type</th>
+                <th>Group</th>
+                <th>Year</th>
+                <th>Rating</th>
+                <th>Tags</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="adminTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <dialog id="adminEditDialog" class="details-dialog">
+      <div class="dialog-card admin-edit-card">
+        <h3>Edit item</h3>
+        <form id="adminEditForm" class="add-form">
+          <label>
+            <span>Title</span>
+            <input id="editTitle" type="text" />
+          </label>
+          <label>
+            <span>Group</span>
+            <input id="editGroup" type="text" />
+          </label>
+          <label>
+            <span>Year</span>
+            <input id="editYear" type="number" min="1900" max="2100" />
+          </label>
+          <label>
+            <span>Rating</span>
+            <input id="editRating" type="number" min="0" max="10" step="0.1" />
+          </label>
+          <label>
+            <span>Tags (comma)</span>
+            <input id="editTags" type="text" />
+          </label>
+          <label class="meta-textarea">
+            <span>Synopsis</span>
+            <textarea id="editSynopsis" rows="3"></textarea>
+          </label>
+          <p id="editStatus" class="add-status"></p>
+          <div class="dialog-actions">
+            <button id="editCancel" type="button" class="btn btn-ghost">Cancel</button>
+            <button id="editSave" type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </form>
+      </div>
+    </dialog>
+
+    <script src="admin.js"></script>
+  </body>
+</html>
